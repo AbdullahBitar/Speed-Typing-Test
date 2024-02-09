@@ -35,11 +35,18 @@ h1 {
 
 .rec{
     margin: auto; 
-
     height: 85%; 
-    
     border-radius: 10px;
     background: #ECDEDE;
+
+    padding: 1%;
+
+    font-size: 175%;
+    line-height: 150%;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: left;
+
+    overflow: hidden;
 }
 
 .txt{
