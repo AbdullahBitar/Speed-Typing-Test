@@ -1,0 +1,59 @@
+
+h1 {
+    color: #000;
+    text-align: center;
+    font-family: Koulen;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal; 
+}
+
+.instruc{
+    color: #000;
+    text-align: center;
+    font-family: Koulen;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal; 
+}
+
+.out{
+    margin: auto; 
+    display: block; 
+    justify-content: center;
+
+    width: 60%;
+    height: 500px; 
+    padding:10px;
+    max-width: 1000px;
+    min-width: 600px;
+    border-radius: 10px;
+    background: #E2C0C0;
+}
+
+.rec{
+    margin: auto; 
+
+    height: 85%; 
+    
+    border-radius: 10px;
+    background: #ECDEDE;
+}
+
+.txt{
+    margin: auto; 
+    margin-top:2%;
+    display: block; 
+    justify-content: center;
+
+    width: 60%;
+    height: 40px; 
+    
+    border-radius: 10px;
+    background: #ECDEDE;
+
+    font-size: 150%;
+    font-family: sans-serif;
+}
