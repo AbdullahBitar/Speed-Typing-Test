@@ -50,9 +50,9 @@ const Main = () => {
     const isValid = /^[a-zA-Z0-9:;,.?!@#$%^&*()\-_=+|<>{}\[\]'"`~\\\/]$/.test(key);
     if ((key === " " || key === "Enter") && input !== '') {
       if (input == displayedWords[wordIdx]) setCorrectWords(prev => prev + 1);
-      else{
+      else {
         var temp = chars;
-        for(let i = idx - Math.min(displayedWords[wordIdx].length, input.length) ; i < idx ; i++){
+        for (let i = idx - Math.min(displayedWords[wordIdx].length, input.length); i < idx - Math.min(displayedWords[wordIdx].length, input.length) + displayedWords[wordIdx].length; i++) {
           temp[i].status = 'wrong';
         }
         setChars(temp);
@@ -71,8 +71,21 @@ const Main = () => {
           if (myWords[myWords.length - 1] == displayedWords[wordIdx - 1]) setCorrectWords(prev => prev - 1);
           var tmp = myWords;
           newInput = tmp.pop();
+
+          var temp = chars, newIdx = idx - 1;
+
+          for(let i = newIdx - displayedWords[wordIdx - 1].length ; i < newIdx ; i++){
+            let j = i - (newIdx - displayedWords[wordIdx - 1].length);
+            if(j >= newInput.length){
+              temp[i].status = '';
+            }
+            else if(displayedWords[wordIdx - 1][j] == newInput[j])temp[i].status = 'correct';
+            else temp[i].status = 'wrong';
+          }
+
           setMyWords(tmp);
-          setIdx(prev => prev - (displayedWords[wordIdx - 1].length <= newInput.length ? 1 : 1 + displayedWords[wordIdx - 1].length - newInput.length));
+          const idxChange = (displayedWords[wordIdx - 1].length <= newInput.length ? 1 : 1 + displayedWords[wordIdx - 1].length - newInput.length);
+          setIdx(prev => prev - idxChange);
           setWordIdx(prev => prev - 1);
         }
       }
@@ -82,9 +95,9 @@ const Main = () => {
         setChars(temp);
         setIdx(prev => prev - 1);
       }
-      else if(displayedWords[wordIdx] == newInput){
+      else if (displayedWords[wordIdx] == newInput) {
         var temp = chars;
-        for(let i = idx - Math.min(displayedWords[wordIdx].length, input.length) ; i < idx ; i++){
+        for (let i = idx - newInput.length; i < idx; i++) {
           temp[i].status = 'correct';
         }
         setChars(temp);
@@ -98,18 +111,18 @@ const Main = () => {
       setInput(w);
       for (let i = 0; i < Math.min(correctWord.length, w.length); i++) {
         if (correctWord[i] == w[i]) {
-          if(correctWord.length >= w.length){
+          if (correctWord.length >= w.length) {
             temp[idx - w.length + 1 + i].status = 'correct';
           }
-          else{
+          else {
             temp[idx - correctWord.length + i].status = 'correct';
           }
         }
         else {
-          if(correctWord.length >= w.length){
+          if (correctWord.length >= w.length) {
             temp[idx - w.length + 1 + i].status = 'wrong';
           }
-          else{
+          else {
             temp[idx - correctWord.length + i].status = 'wrong';
           }
         }
@@ -117,7 +130,7 @@ const Main = () => {
 
       setChars(temp);
 
-      if(w.length <= correctWord.length)setIdx(idx + 1);
+      if (w.length <= correctWord.length) setIdx(idx + 1);
     }
   }
 
