@@ -156,7 +156,7 @@ const Main = (props) => {
             ))
           }
         </div>
-        <input className="txt" type="text" id="inpt" value={input} onKeyDown={start} />
+        <input autocomplete="off" className="txt" type="text" id="inpt" value={input} onKeyDown={start} />
       </div>
       <p>{correctWords}</p>
     </div>
