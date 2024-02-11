@@ -50,6 +50,13 @@ const Main = () => {
     const isValid = /^[a-zA-Z0-9:;,.?!@#$%^&*()\-_=+|<>{}\[\]'"`~\\\/]$/.test(key);
     if ((key === " " || key === "Enter") && input !== '') {
       if (input == displayedWords[wordIdx]) setCorrectWords(prev => prev + 1);
+      else{
+        var temp = chars;
+        for(let i = idx - Math.min(displayedWords[wordIdx].length, input.length) ; i < idx ; i++){
+          temp[i].status = 'wrong';
+        }
+        setChars(temp);
+      }
       var tmp = myWords;
       tmp.push(input);
       setMyWords(tmp);
@@ -74,6 +81,13 @@ const Main = () => {
         temp[idx - 1].status = '';
         setChars(temp);
         setIdx(prev => prev - 1);
+      }
+      else if(displayedWords[wordIdx] == newInput){
+        var temp = chars;
+        for(let i = idx - Math.min(displayedWords[wordIdx].length, input.length) ; i < idx ; i++){
+          temp[i].status = 'correct';
+        }
+        setChars(temp);
       }
       setInput(newInput);
     }
