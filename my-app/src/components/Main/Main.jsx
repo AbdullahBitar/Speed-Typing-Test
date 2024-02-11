@@ -48,7 +48,7 @@ const Main = () => {
 
   function handlePress(key) {
     const isValid = /^[a-zA-Z0-9:;,.?!@#$%^&*()\-_=+|<>{}\[\]'"`~\\\/]$/.test(key);
-    if (key === " " || key === "Enter") {
+    if ((key === " " || key === "Enter") && input !== '') {
       if (input == displayedWords[wordIdx]) setCorrectWords(prev => prev + 1);
       var tmp = myWords;
       tmp.push(input);
@@ -82,7 +82,6 @@ const Main = () => {
       var temp = chars;
       var w = input.concat(key);
       setInput(w);
-      console.log(w + " " + correctWord + " " + idx);
       for (let i = 0; i < Math.min(correctWord.length, w.length); i++) {
         if (correctWord[i] == w[i]) {
           if(correctWord.length >= w.length){
