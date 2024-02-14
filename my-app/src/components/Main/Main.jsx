@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './main.css';
 
 const Main = (props) => {
@@ -30,6 +30,7 @@ const Main = (props) => {
     setChars(temp);
   }, []);
 
+  const containerRef = useRef(null);
   //timer
   useEffect(() => {
     if (!started || !second) return;
@@ -143,13 +144,39 @@ const Main = (props) => {
     handlePress(event.key);
   }
 
+  const[element, setElement] = useState();
+
+  useEffect(() => {
+    const box = containerRef.current.getBoundingClientRect();
+    const boxBottom = box.bottom;
+    console.log(idx);
+    
+    setElement(document.getElementById(idx));
+    if(element == null)return;
+
+    const normalHeight = document.getElementById('52').getBoundingClientRect().bottom - document.getElementById('1').getBoundingClientRect().bottom;
+
+    const chRef = element.getBoundingClientRect();
+    const chBottom = chRef.bottom;
+
+    if(boxBottom - chBottom < normalHeight){
+      const scrollAmount = normalHeight - (boxBottom - chBottom);
+    
+      containerRef.current.scrollTo({
+          top: containerRef.current.scrollTop + scrollAmount,
+          behavior: 'auto'
+      });
+    }
+
+  }, [idx]);
+
   return (
     <div>
       <h1>Welcome to Speedy Speedy</h1>
       <p className="instruc">You have 60 seconds. Once you press a button the timer will start. type as fast as you can!</p>
       <p id="timer" class="instruc">Time remaining: {second}</p>
       <div className="out">
-        <div className="rec" id="txt">
+        <div ref={containerRef} className="rec" id="txt">
           {
             chars.map((val) => (
               <span id={val.idx} class={val.status}>{val.val}</span>
