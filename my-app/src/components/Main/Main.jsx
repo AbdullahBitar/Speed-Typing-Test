@@ -145,6 +145,7 @@ const Main = (props) => {
   }
 
   const[element, setElement] = useState();
+  const [scroll, setScroll] = useState(0);
 
   useEffect(() => {
     const box = containerRef.current.getBoundingClientRect();
@@ -160,10 +161,11 @@ const Main = (props) => {
     const chBottom = chRef.bottom;
 
     if(boxBottom - chBottom < normalHeight){
-      const scrollAmount = normalHeight - (boxBottom - chBottom);
-    
+      const scrollAmount = box.bottom - box.top - (document.getElementById('0').getBoundingClientRect().bottom - box.top) - (boxBottom - chBottom );
+      if(!scroll)setScroll(scrollAmount);
+
       containerRef.current.scrollTo({
-          top: containerRef.current.scrollTop + scrollAmount,
+          top: containerRef.current.scrollTop + scroll,
           behavior: 'auto'
       });
     }
